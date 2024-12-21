@@ -1,12 +1,18 @@
 const express = require('express');
-const router = express.Router();
 const { getBlogs, createBlog, getBlogById, updateBlog, deleteBlog } = require('../controllers/blogController');
+const { authenticateUser } = require('../middlewares/authMiddleware');
+const { checkRole } = require('../middlewares/roleMiddleware');
 
-router.get('/all-/blogs', getBlogs);
-router.post('/new', createBlog);
+const router = express.Router();
+
+// Public Routes
+router.get('/all-blogs', getBlogs);
 router.get('/:id/Singleblog', getBlogById);
-router.put('/:id/update', updateBlog);
-router.delete('/:id/delete', deleteBlog);
+
+// Protected Routes
+router.post('/new', authenticateUser, checkRole('editor', 'admin'), createBlog);
+router.put('/:id/update', authenticateUser, checkRole('editor', 'admin'), updateBlog);
+router.delete('/:id/delete', authenticateUser, checkRole('admin'), deleteBlog);
 
 module.exports = router;
 
