@@ -12,6 +12,7 @@ const blogSchema = new mongoose.Schema({
   },
   renderedContent: {
     type: String,
+    default: "",
     required: true,
   },
   author: {
@@ -25,4 +26,8 @@ const blogSchema = new mongoose.Schema({
   },
 });
 
+blogSchema.index({
+  title: "text",
+  content: "text",
+});
 module.exports = mongoose.model("Blog", blogSchema);
