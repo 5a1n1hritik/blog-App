@@ -1,11 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 const navigation = [
-  { name: "Home", href: "/", current: false },
-  { name: "Projects", href: "/projects", current: false },
-  { name: "Articles", href: "*", current: false },
-  { name: "Contact", href: "/contact", current: false },
+  { name: "Home", href: "/", current: false, roles: ["admin", "user"] },
+  { name: "Portfolio", href: "*", current: false, roles: ["user"] },
+  { name: "Projects", href: "/projects", current: false, roles: ["admin"] },
+  { name: "Blog", href: "/blog", current: false, roles: ["admin", "user"] },
+  { name: "About", href: "*", current: false, roles: ["user"] },
+  { name: "Contact", href: "/contact", current: false, roles: ["admin", "user"] },
 ];
 
 function classNames(...classes) {
@@ -14,9 +17,12 @@ function classNames(...classes) {
 
 const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
-  const [isClicked, setIsClicked] = useState(false);
   const location = useLocation();
+  const { auth } = useAuth(); // Access user's role
+  const { role } = auth;
+
+  // Filter navigation items based on role
+  const filteredNavigation = navigation.filter((item) => item.roles.includes(role));
 
   const updateCurrentState = (href) => location.pathname === href;
 
@@ -40,7 +46,7 @@ const Navbar = () => {
             <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
               <div className="flex shrink-0 items-center text-2xl font-extrabold bg-gradient-to-b from-blue-100 to-black bg-clip-text text-transparent">
                 <a href="/">
-                  Saini<span className="h-8 w-auto text-blue-500">.</span>
+                  My<span className="h-8 w-auto text-blue-500">_</span>Blog
                 </a>
               </div>
               <div className="hidden sm:block ml-6">
@@ -63,43 +69,21 @@ const Navbar = () => {
               </div>
             </div>
             <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-              {/* <div className="flex items-center">
-                <button
-                  onClick={() => setIsClicked(!isClicked)}
-                  className="ml-2 relative rounded-full px-2 p-1 text-blue-800 hover:text-blue-800 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-blue-600"
+              <div className="flex items-center">
+                <a
+                  href="/login"
+                  onClick={() => alert("Sign In functionality here!")}
+                  className="hidden sm:block px-4 py-2 text-sm font-medium text-blue-800 border border-blue-500 rounded-xl hover:text-blue-800"
                 >
-                  <span className="absolute -inset-1.5" />
-                  <span className="sr-only">View notifications</span>
-                  <i
-                    className={`bi ${
-                      isClicked ? "bi-bell-fill" : "bi-bell"
-                    } h-8 w-8`}
-                  ></i>
-                </button>
-              </div> */}
-              <div className="relative ml-3">
-                <button
-                  className="relative flex rounded-lg bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-blue-600"
-                  onClick={() => setIsOpen(!isOpen)}
+                  Log In
+                </a>
+                <a
+                  href="/register"
+                  onClick={() => alert("Sign In functionality here!")}
+                  className="ml-2 px-4 py-2 text-sm font-medium text-blue-800 border border-blue-500 rounded-xl hover:text-blue-800"
                 >
-                  <span className="absolute -inset-1.5" />
-                  <span className="sr-only">Open user menu</span>
-                  <img
-                    src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                    alt="User profile"
-                    className="h-8 w-8 rounded-lg"
-                  />
-                </button>
-                {isOpen && (
-                  <div className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-blue/5 focus:outline-none">
-                    <a
-                      href="/"
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-300 w-full p-2 rounded-lg"
-                    >
-                      My Profile
-                    </a>
-                  </div>
-                )}
+                  Sign In
+                </a>
               </div>
             </div>
           </div>

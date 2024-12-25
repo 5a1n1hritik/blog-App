@@ -1,8 +1,8 @@
-import axios from 'axios';
+import axios from "axios";
 
-const API_URL = 'http://localhost:5000/api/blogs'; // Replace with your backend URL
+const API_URL = "http://localhost:5000/api/blogs";
 
-export const getBlogs = async (page = 1, limit = 10, search = '') => {
+export const getBlogs = async (page = 1, limit = 10, search = "") => {
   const response = await axios.get(`${API_URL}/all-blogs`, {
     params: { page, limit, search },
   });
@@ -15,10 +15,20 @@ export const getBlogById = async (id) => {
 };
 
 export const createBlog = async (data, token) => {
-  const response = await axios.post(`${API_URL}/new`, data, {
-    headers: { Authorization: `Bearer ${token}` },
-  });
-  return response.data;
+  try {
+    const response = await axios.post(`${API_URL}/new`, data, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      withCredentials: true,
+    });
+    return response.data;
+  } catch (error) {
+    console.error(
+      "Error creating blog:",
+      error.response?.data?.message || error.message
+    );
+  }
 };
 
 export const updateBlog = async (id, data, token) => {
