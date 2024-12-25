@@ -7,13 +7,11 @@ import BlogDetails from "./components/BlogDetails";
 import Home from "./pages/Home";
 import Footer from "./components/Footer";
 import MarkdownEditor from "./components/MarkdownEditor";
-import { AuthProvider } from "./context/AuthContext";
 import Register from "./components/Register";
 import Login from "./components/Login";
 
 function App() {
   return (
-    <AuthProvider>
       <Router>
         <Navbar />
         <Routes>
@@ -27,7 +25,6 @@ function App() {
         </Routes>
         <Footer />
       </Router>
-    </AuthProvider>
   );
 }
 

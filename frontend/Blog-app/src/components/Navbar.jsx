@@ -1,14 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
+// import jwtDecode from "jwt-decode";
+// import Cookies from "js-cookie";
 
 const navigation = [
-  { name: "Home", href: "/", current: false, roles: ["admin", "user"] },
-  { name: "Portfolio", href: "*", current: false, roles: ["user"] },
-  { name: "Projects", href: "/projects", current: false, roles: ["admin"] },
-  { name: "Blog", href: "/blog", current: false, roles: ["admin", "user"] },
-  { name: "About", href: "*", current: false, roles: ["user"] },
-  { name: "Contact", href: "/contact", current: false, roles: ["admin", "user"] },
+  { name: "Home", href: "/", current: false },
+  { name: "Portfolio", href: "*", current: false },
+  { name: "Projects", href: "/projects", current: false },
+  { name: "Blog", href: "/blog", current: false },
+  { name: "About", href: "*", current: false },
+  { name: "Contact", href: "/contact", current: false },
 ];
 
 function classNames(...classes) {
@@ -18,11 +19,6 @@ function classNames(...classes) {
 const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const location = useLocation();
-  const { auth } = useAuth(); // Access user's role
-  const { role } = auth;
-
-  // Filter navigation items based on role
-  const filteredNavigation = navigation.filter((item) => item.roles.includes(role));
 
   const updateCurrentState = (href) => location.pathname === href;
 
