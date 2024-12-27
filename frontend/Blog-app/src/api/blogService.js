@@ -33,14 +33,20 @@ export const createBlog = async (data, token) => {
 
 export const updateBlog = async (id, data, token) => {
   const response = await axios.put(`${API_URL}/${id}/update`, data, {
-    headers: { Authorization: `Bearer ${token}` },
+    headers: {
+      "Content-Type": "application/json",
+    },
+    withCredentials: true,
   });
   return response.data;
 };
 
 export const deleteBlog = async (id, token) => {
   const response = await axios.delete(`${API_URL}/${id}/delete`, {
-    headers: { Authorization: `Bearer ${token}` },
+    headers: {
+      "Content-Type": "application/json",
+    },
+    withCredentials: true,
   });
   return response.data;
 };
