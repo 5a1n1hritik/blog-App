@@ -67,15 +67,13 @@ const Navbar = () => {
             <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
               <div className="flex items-center">
                 <a
-                  href="/login"
-                  onClick={() => alert("Sign In functionality here!")}
+                  href="/login" 
                   className="hidden sm:block px-4 py-2 text-sm font-medium text-blue-800 border border-blue-500 rounded-xl hover:text-blue-800"
                 >
                   Log In
                 </a>
                 <a
                   href="/register"
-                  onClick={() => alert("Sign In functionality here!")}
                   className="ml-2 px-4 py-2 text-sm font-medium text-blue-800 border border-blue-500 rounded-xl hover:text-blue-800"
                 >
                   Sign In

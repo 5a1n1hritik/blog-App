@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
-import { updateBlog } from "../api/blogService";
+import { createBlog } from "../api/blogService";
 import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
 import {
@@ -14,8 +14,7 @@ import {
   Code,
 } from "lucide-react";
 
-const MarkdownEditor = () => {
-  const { blogId } = useParams();
+const CreateMarkdownBlogs = () => {
   const [markdown, setMarkdown] = useState("");
   const [title, setTitle] = useState("");
   const [error, setError] = useState("");
@@ -106,14 +105,11 @@ const MarkdownEditor = () => {
       setError("Title and content are required.");
       return;
     }
-    if (!blogId) {
-      setError("Blog ID is missing.");
-      return;
-    }
     setLoading(true);
     try {
-      await updateBlog(blogId, { title, content: markdown });
-      setSuccess("Blog updated successfully!");
+      const blogData = { title, content: markdown };
+      await createBlog(blogData);
+      setSuccess("Blog created successfully!");
       setError("");
       setMarkdown("");
       setTitle("");
@@ -295,4 +291,4 @@ const MarkdownEditor = () => {
   );
 };
 
-export default MarkdownEditor;
+export default CreateMarkdownBlogs;

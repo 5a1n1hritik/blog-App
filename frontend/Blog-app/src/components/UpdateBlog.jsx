@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
-import { updateBlog } from "../api/blogService";
+import { getBlogById, updateBlog } from "../api/blogService";
 import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
 import {
@@ -14,13 +14,14 @@ import {
   Code,
 } from "lucide-react";
 
-const MarkdownEditor = () => {
+const UpdateBlog = () => {
   const { blogId } = useParams();
   const [markdown, setMarkdown] = useState("");
   const [title, setTitle] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [loading, setLoading] = useState(false);
+  const [fetching, setFetching] = useState(true);
   const [activeTab, setActiveTab] = useState("write");
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
@@ -35,6 +36,25 @@ const MarkdownEditor = () => {
       navigate("/login");
     }
   }, [navigate]);
+
+  useEffect(() => {
+    if (isAuthenticated && blogId) {
+      const fetchBlog = async () => {
+        try {
+          const blogData = await getBlogById(blogId);
+          console.log(blogData);
+          setTitle(blogData.data.title || "");
+          setMarkdown(blogData.data.content || "");
+        } catch (err) {
+          setError(err.message || "Failed to load blog details.");
+        } finally {
+          setFetching(false);
+        }
+      };
+
+      fetchBlog();
+    }
+  }, [isAuthenticated, blogId]);
 
   const toolbarActions = [
     {
@@ -124,6 +144,14 @@ const MarkdownEditor = () => {
       setLoading(false);
     }
   };
+
+  if (fetching) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <p>Loading blog details...</p>
+      </div>
+    );
+  }
 
   return (
     <>
@@ -295,4 +323,4 @@ const MarkdownEditor = () => {
   );
 };
 
-export default MarkdownEditor;
+export default UpdateBlog;

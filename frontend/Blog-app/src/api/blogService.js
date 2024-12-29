@@ -31,7 +31,7 @@ export const createBlog = async (data, token) => {
   }
 };
 
-export const updateBlog = async (id, data, token) => {
+export const updateBlog = async (id, data ) => {
   const response = await axios.put(`${API_URL}/${id}/update`, data, {
     headers: {
       "Content-Type": "application/json",

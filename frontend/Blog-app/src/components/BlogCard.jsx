@@ -29,6 +29,13 @@ const BlogCard = ({ blog }) => {
         >
           Read More <i className="bi bi-arrow-right ml-2 w-4 h-4"></i>
         </Link>
+        <Link
+          to={`/edit-blog/${blog._id}`}
+          rel="noopener noreferrer"
+          className=" items-center sapace-y- px-6 py-3 bg-gray-100 text-[#000000] hover:text-white bg-gradient-to-l left-0 rounded-full hover:from-blue-400 hover:to-black transition-colors"
+        >
+          Update Blog <i className="bi bi-arrow-right ml-2 w-4 h-4"></i>
+        </Link>
       </div>
     </div>
   );

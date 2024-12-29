@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axiosInstance from "../api/authAPIs";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -12,29 +13,32 @@ const Login = () => {
 
   const navigate = useNavigate();
 
+  useEffect(() => {
+    const authToken = localStorage.getItem("authToken");
+    if (authToken) {
+      toast.info("You're already logged in.");
+      navigate("/"); 
+    }
+  }, [navigate]);
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!formData.email.includes("@") || formData.password.length < 8) {
+      toast.error("Invalid email or password");
+      return;
+    }
     setLoading(true);
     try {
       const response = await axiosInstance.post("/users/login", formData);
-      console.log("User Logged In:", response.data);
       localStorage.setItem("authToken", response.data.authToken);
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        const errorMessage =
-          errorData?.message || `Login failed with status ${response.status}`;
-        alert(errorMessage);
-      } else {
-        alert("Login successful");
-        navigate("/");
-      }
+      toast.success("Login successful!");
+      navigate("/");
     } catch (error) {
-      console.error("Error during login:", error.response.data);
+      toast.error(error.response?.data?.message || "Login failed");
     } finally {
       setLoading(false);
     }
