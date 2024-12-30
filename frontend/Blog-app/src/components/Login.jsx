@@ -33,7 +33,7 @@ const Login = () => {
     }
     setLoading(true);
     try {
-      const response = await axiosInstance.post("/users/login", formData);
+      const response = await axiosInstance.post("/login", formData);
       localStorage.setItem("authToken", response.data.authToken);
       toast.success("Login successful!");
       navigate("/");

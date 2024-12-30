@@ -12,6 +12,7 @@ import Login from "./components/Login";
 import UpdateBlog from "./components/UpdateBlog";
 import CreateMarkdownBlogs from "./components/CreateMarkdownBlogs";
 import DeleteBlogs from "./components/DeleteBlogs";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
           <Route path="/login" element={<Login />} />
         </Routes>
         <Footer />
+        <ToastContainer/>
       </Router>
   );
 }
