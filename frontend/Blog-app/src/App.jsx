@@ -11,6 +11,7 @@ import Register from "./components/Register";
 import Login from "./components/Login";
 import UpdateBlog from "./components/UpdateBlog";
 import CreateMarkdownBlogs from "./components/CreateMarkdownBlogs";
+import DeleteBlogs from "./components/DeleteBlogs";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           {/* <Route path="/edit-blog/:blogId" element={<MarkdownEditor />} /> */}
           <Route path="/new/blog" element={<CreateMarkdownBlogs />} />
           <Route path="/edit-blog/:blogId" element={<UpdateBlog />} />
+          <Route path="/delete-blog/:blogId" element={<DeleteBlogs />} />
 
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />

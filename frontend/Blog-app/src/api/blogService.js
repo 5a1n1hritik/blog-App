@@ -41,10 +41,11 @@ export const updateBlog = async (id, data ) => {
   return response.data;
 };
 
-export const deleteBlog = async (id, token) => {
+export const deleteBlog = async (id, authToken) => {
   const response = await axios.delete(`${API_URL}/${id}/delete`, {
     headers: {
       "Content-Type": "application/json",
+      Authorization: `Bearer ${authToken}`,
     },
     withCredentials: true,
   });
