@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
-// import jwtDecode from "jwt-decode";
-// import Cookies from "js-cookie";
 
 const navigation = [
   { name: "Home", href: "/", current: false },
   { name: "Portfolio", href: "*", current: false },
-  { name: "Projects", href: "/projects", current: false },
-  { name: "Blog", href: "/blog", current: false },
-  { name: "About", href: "*", current: false },
+  { name: "Post", href: "/blog", current: false },
+  { name: "New", href: "/new/blog", current: false },
   { name: "Contact", href: "/contact", current: false },
 ];
 
@@ -41,8 +38,8 @@ const Navbar = () => {
             </div>
             <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
               <div className="flex shrink-0 items-center text-2xl font-extrabold bg-gradient-to-b from-blue-100 to-black bg-clip-text text-transparent">
-                <a href="/">
-                  My<span className="h-8 w-auto text-blue-500">_</span>Blog
+                <a href="/"> 
+                Saini<span className="h-8 w-auto text-blue-500"></span>Codex
                 </a>
               </div>
               <div className="hidden sm:block ml-6">
