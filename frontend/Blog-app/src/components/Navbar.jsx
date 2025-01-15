@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 
 const navigation = [
-  { name: "Home", href: "/", current: false },
   { name: "Portfolio", href: "*", current: false },
+  { name: "Projects", href: "*", current: false },
   { name: "Post", href: "/blog", current: false },
+  { name: "Info", href: "*", current: false },
   { name: "New", href: "/new/blog", current: false },
   { name: "Contact", href: "/contact", current: false },
 ];
@@ -21,7 +22,7 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="bg-white sticky top-0 shadow-md w-full">
+      <nav className="fixed top-0 w-full bg-white/80 backdrop-blur-sm border-b border-gray-200 z-50">
         <div className="w-full mx-auto px-2 sm:px-6 lg:px-8">
           <div className="relative flex justify-between h-20 items-center">
             <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
