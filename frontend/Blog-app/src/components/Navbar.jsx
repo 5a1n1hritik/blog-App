@@ -5,7 +5,7 @@ const navigation = [
   { name: "Portfolio", href: "*", current: false },
   { name: "Projects", href: "*", current: false },
   { name: "Post", href: "/blog", current: false },
-  { name: "Info", href: "*", current: false },
+  { name: "Info", href: "info", current: false },
   { name: "New", href: "/new/blog", current: false },
   { name: "Contact", href: "/contact", current: false },
 ];

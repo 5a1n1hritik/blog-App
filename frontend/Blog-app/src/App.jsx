@@ -15,6 +15,7 @@ import DeleteBlogs from "./components/DeleteBlogs";
 import { ToastContainer } from "react-toastify";
 import Contact from "./components/Contact";
 import NotFound from "./components/NotFound";
+import Info from "./pages/Info";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/info" element={<Info />} />
           <Route path="*" element={<NotFound />} />
           <Route path="/blog" element={<BlogList />} />
           <Route path="/blog/:id" element={<BlogDetails />} />
